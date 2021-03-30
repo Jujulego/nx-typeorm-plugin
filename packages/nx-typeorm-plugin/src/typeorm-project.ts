@@ -31,10 +31,7 @@ export class TypeormProject {
     };
   }
 
-  protected _withTsNode<T>(fun: () => T): T {
-    // Setup
-    const wasEnabled = this._tsNodeService?.enabled() ?? false;
-
+  protected _setupTsNode() {
     if (!this._tsNodeService) {
       this._tsNodeService = tsnode.register({
         project: path.join(this.root, 'tsconfig.json'),
@@ -43,16 +40,6 @@ export class TypeormProject {
         },
         transpileOnly: true
       });
-    }
-
-    try {
-      // Enable service
-      this._tsNodeService.enabled(true);
-
-      return fun();
-    } finally {
-      // Reset service state
-      this._tsNodeService.enabled(wasEnabled);
     }
   }
 
@@ -66,8 +53,7 @@ export class TypeormProject {
       options = await this.getOptions(options);
     }
 
-    return this._withTsNode(() => {
-      return getConnectionManager().create(options as ConnectionOptions).connect();
-    });
+    this._setupTsNode();
+    return await getConnectionManager().create(options).connect();
   }
 }
