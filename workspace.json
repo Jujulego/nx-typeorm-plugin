@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "projects": {
+    "nx-typeorm-plugin": {
+      "root": "packages/nx-typeorm-plugin",
+      "sourceRoot": "packages/nx-typeorm-plugin/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/nx-typeorm-plugin/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/nx-typeorm-plugin"
+          ],
+          "options": {
+            "jestConfig": "packages/nx-typeorm-plugin/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/nx-typeorm-plugin",
+            "tsConfig": "packages/nx-typeorm-plugin/tsconfig.lib.json",
+            "packageJson": "packages/nx-typeorm-plugin/package.json",
+            "main": "packages/nx-typeorm-plugin/src/index.ts",
+            "assets": [
+              "packages/nx-typeorm-plugin/*.md",
+              {
+                "input": "./packages/nx-typeorm-plugin/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-typeorm-plugin",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-typeorm-plugin",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-typeorm-plugin-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-typeorm-plugin-e2e",
+      "sourceRoot": "e2e\\nx-typeorm-plugin-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-typeorm-plugin:build",
+            "npmPackageName": "@jujulego/nx-typeorm-plugin",
+            "pluginOutputPath": "dist/packages/nx-typeorm-plugin",
+            "jestConfig": "e2e/nx-typeorm-plugin-e2e/jest.config.js"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
+}
