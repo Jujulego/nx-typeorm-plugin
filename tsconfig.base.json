@@ -1,22 +1,29 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
     "lib": ["es2017", "dom"],
+    "declaration": false,
+    "sourceMap": true,
+    "rootDir": ".",
+    "importHelpers": true,
+
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+
+    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "jujulego/nx-typeorm-plugin": ["packages/nx-typeorm-plugin/src/index.ts"]
-    }
+    },
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "exclude": ["node_modules", "tmp"]
 }
