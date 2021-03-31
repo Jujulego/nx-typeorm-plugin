@@ -53,6 +53,9 @@
               }
             ]
           }
+        },
+        "cool": {
+          "executor": "./dist/packages/nx-typeorm-plugin:build"
         }
       }
     },

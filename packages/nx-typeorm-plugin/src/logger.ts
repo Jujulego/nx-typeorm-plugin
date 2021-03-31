@@ -79,6 +79,10 @@ export class Logger {
     this.keepSpinner(() => {
       // Format message
       switch (level) {
+        case 'debug':
+          message = chalk.gray(message);
+          break;
+
         case 'warn':
           message = chalk.yellow(message);
           break;
@@ -88,7 +92,7 @@ export class Logger {
           message = chalk.red(message);
       }
 
-      this.spinner.stopAndPersist({ text: message, symbol: SYMBOLS[level] });
+      this.spinner.stopAndPersist({ text: message, symbol: SYMBOLS[level] ?? ' ' });
     });
   }
 }
