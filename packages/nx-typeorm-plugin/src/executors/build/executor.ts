@@ -1,17 +1,23 @@
+import { ExecutorContext } from '@nrwl/devkit';
+import path from 'path';
+
+import { logger } from '../../logger';
+import { TypeormProject } from '../../typeorm-project';
 import { BuildExecutorSchema } from './schema';
 
-import { logger, LogLevel } from '../../logger';
-
 // Executor
-async function runExecutor(options: BuildExecutorSchema) {
-  logger.spin('Loading');
-
-  for (let i = 3; i >= 0; --i) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    logger.log(['debug', 'info', 'warn', 'error'][i] as LogLevel, `Wait for ${i}s`);
+async function runExecutor(options: BuildExecutorSchema, context: ExecutorContext) {
+  // Load project
+  if (!context.projectName) {
+    logger.error('Missing project in context');
+    return { success: false };
   }
 
-  logger.succeed('Finished !');
+  const nxProject = context.workspace.projects[context.projectName]
+  const toProject = new TypeormProject(path.resolve(context.root, nxProject.root));
+
+  // Read options
+  console.log(await toProject.getOptions());
 
   return {
     success: true,

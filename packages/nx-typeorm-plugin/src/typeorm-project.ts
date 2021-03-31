@@ -1,3 +1,4 @@
+import { ExecutorContext } from '@nrwl/devkit';
 import { Connection, ConnectionOptions, ConnectionOptionsReader, getConnectionManager } from 'typeorm';
 import path from 'path';
 import tsnode from 'ts-node';
@@ -22,7 +23,7 @@ export class TypeormProject {
       return pattern;
     }
 
-    const adapted = path.join(path.resolve(this.root), pattern);
+    const adapted = path.join(this.root, pattern);
     logger.debug(`Update pattern ${pattern} => ${adapted}`);
 
     return adapted;
