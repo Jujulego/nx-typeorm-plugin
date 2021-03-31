@@ -21,6 +21,7 @@
     "paths": {
       "jujulego/nx-typeorm-plugin": ["packages/nx-typeorm-plugin/src/index.ts"]
     },
+    "esModuleInterop": true,
 
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
