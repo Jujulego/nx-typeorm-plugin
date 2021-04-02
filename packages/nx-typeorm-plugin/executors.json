@@ -1,11 +1,6 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "executors": {
-    "build": {
-      "implementation": "./src/executors/build/executor",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
-    },
     "db-create": {
       "implementation": "./src/executors/db-create/executor",
       "schema": "./src/executors/db-create/schema.json",
