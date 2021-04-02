@@ -1,6 +1,7 @@
 {
   "version": 2,
   "cli": { "defaultCollection": "@nrwl/nx-plugin" },
+  "defaultProject": "nx-typeorm-plugin",
   "projects": {
     "nx-typeorm-plugin": {
       "root": "packages/nx-typeorm-plugin",
@@ -48,8 +49,7 @@
               }
             ]
           }
-        },
-        "cool": { "executor": "./dist/packages/nx-typeorm-plugin:build" }
+        }
       }
     },
     "nx-typeorm-plugin-e2e": {
@@ -64,6 +64,55 @@
             "npmPackageName": "@jujulego/nx-typeorm-plugin",
             "pluginOutputPath": "dist/packages/nx-typeorm-plugin",
             "jestConfig": "e2e/nx-typeorm-plugin-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "node-sample": {
+      "root": "samples/node-sample",
+      "sourceRoot": "samples\\node-sample\\src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/samples/node-sample",
+            "main": "samples/node-sample/src/main.ts",
+            "tsConfig": "samples/node-sample/tsconfig.app.json",
+            "assets": ["samples/node-sample/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "samples/node-sample/src/environments/environment.ts",
+                  "with": "samples/node-sample/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "db-create": {
+          "executor": "./dist/packages/nx-typeorm-plugin:db-create"
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": { "buildTarget": "node-sample:build" }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["samples/node-sample/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/samples/node-sample"],
+          "options": {
+            "jestConfig": "samples/node-sample/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

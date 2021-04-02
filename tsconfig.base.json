@@ -8,21 +8,18 @@
     "sourceMap": true,
     "rootDir": ".",
     "importHelpers": true,
-
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "jujulego/nx-typeorm-plugin": ["packages/nx-typeorm-plugin/src/index.ts"]
     },
     "esModuleInterop": true,
-
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },

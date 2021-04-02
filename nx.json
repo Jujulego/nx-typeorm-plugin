@@ -1,6 +1,4 @@
 {
-  "npmScope": "jujulego",
-  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": { "dependencies": "*", "devDependencies": "*" },
@@ -9,18 +7,21 @@
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
+  "affected": { "defaultBase": "master" },
+  "npmScope": "jujulego",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
+  "workspaceLayout": { "appsDir": "samples", "libsDir": "packages" },
   "projects": {
     "nx-typeorm-plugin": { "tags": [] },
     "nx-typeorm-plugin-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-typeorm-plugin"]
-    }
-  },
-  "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
+    },
+    "node-sample": { "tags": ["sample"] }
+  }
 }
