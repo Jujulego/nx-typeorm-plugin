@@ -71,28 +71,38 @@ export class Logger {
     this.log('warn', message);
   }
 
-  error(message: string): void {
-    this.log('error', message);
+  error(message: string | Error): void {
+    if (typeof message === 'string') {
+      this.log('error', message);
+    } else {
+      if (message.stack) {
+        this.log('error', message.stack);
+      } else {
+        this.log('error', `${message.name}: ${message.message}`);
+      }
+    }
   }
 
   log(level: LogLevel, message: string): void {
     this.keepSpinner(() => {
-      // Format message
-      switch (level) {
-        case 'debug':
-          message = chalk.gray(message);
-          break;
+      for (let line of message.split('\n')) {
+        // Format message
+        switch (level) {
+          case 'debug':
+            line = chalk.gray(line);
+            break;
 
-        case 'warn':
-          message = chalk.yellow(message);
-          break;
+          case 'warn':
+            line = chalk.yellow(line);
+            break;
 
-        case 'error':
-        case 'fail':
-          message = chalk.red(message);
+          case 'error':
+          case 'fail':
+            line = chalk.red(line);
+        }
+
+        this.spinner.stopAndPersist({ text: line, symbol: SYMBOLS[level] ?? ' ' });
       }
-
-      this.spinner.stopAndPersist({ text: message, symbol: SYMBOLS[level] ?? ' ' });
     });
   }
 }

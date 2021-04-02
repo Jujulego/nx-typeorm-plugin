@@ -2,9 +2,9 @@
   "type": "postgres",
   "host": "localhost",
   "port": "5432",
-  "user": "root",
-  "password": "root",
   "database": "node-sample",
+  "username": "root",
+  "password": "root",
   "entities": [
     "src/app/**/*.entity.ts"
   ],

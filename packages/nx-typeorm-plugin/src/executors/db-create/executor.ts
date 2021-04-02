@@ -32,12 +32,14 @@ async function dbCreateExecutor(options: DbCreateExecutorSchema, context: Execut
 
     // Create database if missing
     const [{ count }] = await connection.query(
-      `select count(distinct dataname) as count from pg_database where datanme = $1`,
+      `select count(distinct datname) as count from pg_database where datname = $1`,
       [config.database]
     );
 
     if (count === '0') {
-      await connection.query(`create database ${config.database}`);
+      logger.debug(`Database ${config.database} does not exists`);
+      await connection.query(`create database "${config.database}"`);
+
       logger.succeed(`Database ${config.database} created`);
     } else {
       logger.stop();
@@ -47,7 +49,7 @@ async function dbCreateExecutor(options: DbCreateExecutorSchema, context: Execut
     return { success: true };
   } catch (error) {
     logger.stop();
-    logger.error(error.message);
+    logger.error(error);
 
     return { success: false };
   }

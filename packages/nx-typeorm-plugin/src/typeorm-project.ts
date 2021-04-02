@@ -1,7 +1,6 @@
-import { ExecutorContext } from '@nrwl/devkit';
 import { Connection, ConnectionOptions, ConnectionOptionsReader, getConnectionManager } from 'typeorm';
+import * as tsnode from 'ts-node';
 import path from 'path';
-import tsnode from 'ts-node';
 
 import { logger } from './logger';
 import { TypeormLogger } from './typeorm-logger';
@@ -70,7 +69,7 @@ export class TypeormProject {
     this._setupTsNode();
 
     // Connect to database
-    logger.debug(`Connect to ${options.name}`);
+    logger.debug(`Connect to ${options.name || 'default'} connection`);
     return await getConnectionManager().create(options).connect();
   }
 }
