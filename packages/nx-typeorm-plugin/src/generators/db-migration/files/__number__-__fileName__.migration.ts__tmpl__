@@ -1,0 +1,13 @@
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class <%= className %><%= number %>Migration implements MigrationInterface {
+  name = '<%= className %><%= number %>'
+
+  public async up(queryRunner: QueryRunner): Promise<void> {<% for (const { query } of sql.upQueries) { %>
+    await queryRunner.query(`<%= query %>`);
+  <% } %>}
+
+  public async down(queryRunner: QueryRunner): Promise<void> {<% for (const { query } of sql.downQueries) { %>
+    await queryRunner.query(`<%= query %>`);
+  <% } %>}
+}
