@@ -1,6 +1,6 @@
 {
   "name": "@jujulego/nx-typeorm-plugin",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha1",
   "main": "src/index.js",
   "generators": "./generators.json",
   "executors": "./executors.json"
