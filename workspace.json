@@ -54,8 +54,8 @@
     },
     "nx-typeorm-plugin-e2e": {
       "projectType": "application",
-      "root": "e2e\\nx-typeorm-plugin-e2e",
-      "sourceRoot": "e2e\\nx-typeorm-plugin-e2e/src",
+      "root": "e2e/nx-typeorm-plugin-e2e",
+      "sourceRoot": "e2e/nx-typeorm-plugin-e2e/src",
       "targets": {
         "e2e": {
           "executor": "@nrwl/nx-plugin:e2e",
@@ -70,7 +70,7 @@
     },
     "node-sample": {
       "root": "samples/node-sample",
-      "sourceRoot": "samples\\node-sample\\src",
+      "sourceRoot": "samples/node-sample/src",
       "projectType": "application",
       "targets": {
         "build": {
