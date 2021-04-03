@@ -4,10 +4,10 @@ import path from 'path';
 import { logger } from '../../logger';
 import { TypeormProject } from '../../typeorm-project';
 
-import { DbCreateExecutorSchema } from './schema';
+import { DBCreateExecutorSchema } from './schema';
 
 // Executor
-async function dbCreateExecutor(options: DbCreateExecutorSchema, context: ExecutorContext) {
+export default async function(options: DBCreateExecutorSchema, context: ExecutorContext) {
   try {
     // Load project
     if (!context.projectName) {
@@ -54,6 +54,3 @@ async function dbCreateExecutor(options: DbCreateExecutorSchema, context: Execut
     return { success: false };
   }
 }
-
-export default dbCreateExecutor;
-

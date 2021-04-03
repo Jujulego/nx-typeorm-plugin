@@ -8,10 +8,10 @@
       "schema": "./src/generators/nx-typeorm-plugin/schema.json",
       "description": "nx-typeorm-plugin generator"
     },
-    "db-migration": {
-      "factory": "./src/generators/db-migration/generator",
-      "schema": "./src/generators/db-migration/schema.json",
-      "description": "db-migration generator"
+    "migration": {
+      "factory": "./src/generators/migration/generator",
+      "schema": "./src/generators/migration/schema.json",
+      "description": "Migration generator"
     }
   }
 }

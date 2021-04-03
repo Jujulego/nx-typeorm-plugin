@@ -1,3 +1,3 @@
-export interface DbCreateExecutorSchema {
+export interface DBCreateExecutorSchema {
   database: string;
 }

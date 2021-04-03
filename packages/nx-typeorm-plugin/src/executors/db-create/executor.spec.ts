@@ -1,7 +1,7 @@
-import { DbCreateExecutorSchema } from './schema';
+import { DBCreateExecutorSchema } from './schema';
 import executor from './executor';
 
-const options: DbCreateExecutorSchema = {};
+const options: DBCreateExecutorSchema = {};
 
 describe('DbCreate Executor', () => {
   it('can run', async () => {

@@ -2,12 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "cli": "nx",
   "title": "db-create executor",
-  "description": "Create a typeorm database.",
+  "description": "Create a database.",
   "type": "object",
   "properties": {
     "database": {
       "type": "string",
-      "description": "Typeorm database to create.",
+      "description": "Database to create.",
       "default": "default"
     }
   },

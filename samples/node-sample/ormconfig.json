@@ -5,6 +5,7 @@
   "database": "node-sample",
   "username": "root",
   "password": "root",
+  "logging": true,
   "entities": [
     "src/app/**/*.entity.ts"
   ],
