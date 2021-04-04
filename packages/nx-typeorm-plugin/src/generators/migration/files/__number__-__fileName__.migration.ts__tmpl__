@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class <%= className %><%= number %>Migration implements MigrationInterface {
-  name = '<%= className %><%= number %>'
+  name = '<%= className %><%= timestamp %>'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     <% for (const { query } of sql.upQueries) { %>

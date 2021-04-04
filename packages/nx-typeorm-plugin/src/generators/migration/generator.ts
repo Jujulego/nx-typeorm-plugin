@@ -27,18 +27,23 @@ async function generateMigration(host: Tree, options: MigrationGeneratorSchema) 
     return;
   }
 
+  // Count existing migrations
+  const migrationsDir = path.join(projectRoot, config.cli.migrationsDir);
+  const migrations = host.children(migrationsDir)
+    .filter(file => file.endsWith('.migration.ts'));
+
+  let number = (migrations.length + 1).toString();
+  while (number.length < 4) number = '0' + number;
+
   // Create files
   const templateOptions = {
     ...names(options.name),
-    number: '0001',
+    number,
+    timestamp: Date.now(),
     sql,
     tmpl: ''
   };
-  generateFiles(host,
-    path.join(__dirname, 'files'),
-    path.join(projectRoot, config.cli.migrationsDir),
-    templateOptions
-  );
+  generateFiles(host, path.join(__dirname, 'files'), migrationsDir, templateOptions);
 }
 
 // Factory
