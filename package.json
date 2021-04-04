@@ -27,6 +27,7 @@
     "help": "nx help"
   },
   "dependencies": {
+    "@nrwl/devkit": "11.6.1",
     "chalk": "^4.1.0",
     "log-symbols": "^4.1.0",
     "ora": "^5.4.0",
@@ -37,7 +38,6 @@
   },
   "devDependencies": {
     "@nrwl/cli": "11.6.1",
-    "@nrwl/devkit": "11.6.1",
     "@nrwl/eslint-plugin-nx": "11.6.1",
     "@nrwl/jest": "11.6.1",
     "@nrwl/linter": "11.6.1",

@@ -1,13 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "name": "nx-typeorm-plugin",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha1",
   "generators": {
-    "nx-typeorm-plugin": {
-      "factory": "./src/generators/nx-typeorm-plugin/generator",
-      "schema": "./src/generators/nx-typeorm-plugin/schema.json",
-      "description": "nx-typeorm-plugin generator"
-    },
     "migration": {
       "factory": "./src/generators/migration/generator",
       "schema": "./src/generators/migration/schema.json",
