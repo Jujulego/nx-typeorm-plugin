@@ -5,6 +5,11 @@
       "implementation": "./src/executors/db-create/executor",
       "schema": "./src/executors/db-create/schema.json",
       "description": "db-create executor"
+    },
+    "db-migrate": {
+      "implementation": "./src/executors/db-migrate/executor",
+      "schema": "./src/executors/db-migrate/schema.json",
+      "description": "db-migrate executor"
     }
   }
 }

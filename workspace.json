@@ -99,6 +99,9 @@
         "db-create": {
           "executor": "./dist/packages/nx-typeorm-plugin:db-create"
         },
+        "db-migrate": {
+          "executor": "./dist/packages/nx-typeorm-plugin:db-migrate"
+        },
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": { "buildTarget": "node-sample:build" }
