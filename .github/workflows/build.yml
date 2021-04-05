@@ -65,8 +65,40 @@ jobs:
           name: build
           path: dist
 
+  publish:
+    runs-on: ubuntu-latest
+    #if: ${{ github.event_name == 'push' }}
+    needs: [ build ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download build artefacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: dist
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.x
+
+      - name: Update version number
+        id: version
+        run: echo "::set-output name=result::$(yarn workspace @jujulego/nx-typeorm-plugin version apply --json)"
+
+      - name: Commit & Tag
+        run: |
+          git config --global user.name 'Boobrie'
+          git config --global user.email 'boobrie@users.noreply.github.com'
+          git commit -am "update(workspace): set version {{ fromJSON(steps.version.outputs.result).newVersion }}"
+          git tag "v{{ fromJSON(steps.version.outputs.result).newVersion }}"
+          #git push --tags
+
   sonarcloud:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
         with:
