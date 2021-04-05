@@ -8,6 +8,8 @@ import { MigrationGeneratorSchema } from './schema';
 
 // Steps
 async function generateMigration(host: Tree, options: MigrationGeneratorSchema) {
+  logger.setOptions(options);
+
   // Load typeorm config
   const projectRoot = readProjectConfiguration(host, options.project).root;
   const project = new TypeormProject(path.join(host.root, projectRoot));
