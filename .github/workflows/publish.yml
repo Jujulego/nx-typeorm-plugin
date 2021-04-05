@@ -70,7 +70,7 @@ jobs:
           git tag "v${{ fromJSON(steps.version.outputs.result).newVersion }}"
 
       - name: Publish to NPM
-        run: yarn publish --access public ./dist/packages/nx-typeorm-plugin
+        run: npm publish --access public ./dist/packages/nx-typeorm-plugin
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
