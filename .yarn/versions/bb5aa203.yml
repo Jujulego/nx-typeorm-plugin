@@ -1,0 +1,3 @@
+releases:
+  "@jujulego/nx-typeorm-plugin": prerelease
+  jujulego: prerelease

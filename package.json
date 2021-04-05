@@ -3,6 +3,9 @@
   "version": "1.0.0-alpha.1",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/nx-typeorm-plugin"
+  ],
   "scripts": {
     "nx": "nx",
     "start": "nx serve",

@@ -682,6 +682,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jujulego/nx-typeorm-plugin@workspace:packages/nx-typeorm-plugin":
+  version: 0.0.0-use.local
+  resolution: "@jujulego/nx-typeorm-plugin@workspace:packages/nx-typeorm-plugin"
+  languageName: unknown
+  linkType: soft
+
 "@nodelib/fs.scandir@npm:2.1.4":
   version: 2.1.4
   resolution: "@nodelib/fs.scandir@npm:2.1.4"
