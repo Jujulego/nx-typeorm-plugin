@@ -9,6 +9,13 @@
       "type": "string",
       "description": "Database to create.",
       "default": "default"
+    },
+    "verbosity": {
+      "alias": "v",
+      "type": "string",
+      "enum": ["debug", "info", "warn", "error"],
+      "description": "Verbosity level.",
+      "default": "info"
     }
   },
   "required": ["database"]

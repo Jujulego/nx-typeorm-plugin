@@ -5,7 +5,12 @@ import ora from 'ora';
 // Types
 export type LogLevel = 'debug' | 'info' | 'success' | 'warn' | 'error' | 'fail';
 
+export interface LoggerOptions {
+  verbosity: Exclude<LogLevel, 'success' | 'fail'>;
+}
+
 // Constants
+const LEVELS = ['debug', 'info', 'warn', 'error'];
 const SYMBOLS: Record<LogLevel, string> = {
   debug:   ' ',
   info:    logSymbols.info,
@@ -19,6 +24,7 @@ const SYMBOLS: Record<LogLevel, string> = {
 export class Logger {
   // Attributes
   private spinner = ora();
+  private options: LoggerOptions = { verbosity: 'info' };
 
   // Methods
   keepSpinner<T>(fun: () => T): T {
@@ -41,17 +47,52 @@ export class Logger {
     }
   }
 
+  setOptions(options: Partial<LoggerOptions>) {
+    this.options.verbosity = options.verbosity ?? this.options.verbosity;
+  }
+
+  private shouldLog(level: LogLevel): boolean {
+    // Simple cases
+    if (['success', 'fail'].includes(level)) return true;
+
+    // Test
+    const allowed = LEVELS.indexOf(this.options.verbosity);
+    const index = LEVELS.indexOf(level);
+
+    return index >= allowed;
+  }
+
+  private formatLog(level: LogLevel, log: string): string[] {
+    return log.split('\n')
+      .map(line => {
+        switch (level) {
+          case 'debug':
+            return chalk.gray(line);
+
+          case 'warn':
+            return chalk.yellow(line);
+
+          case 'error':
+          case 'fail':
+            return chalk.red(line);
+
+          default:
+            return line;
+        }
+      })
+  }
+
   // Spinner
   spin(message: string): void {
     this.spinner.start(message);
   }
 
-  succeed(message?: string): void {
-    this.spinner.stopAndPersist({ text: message, symbol: SYMBOLS['success'] });
+  succeed(log: string): void {
+    this.log('success', log);
   }
 
-  fail(message?: string): void {
-    this.spinner.stopAndPersist({ text: message, symbol: SYMBOLS['fail'] });
+  fail(log: string): void {
+    this.log('fail', log);
   }
 
   stop(): void {
@@ -60,50 +101,43 @@ export class Logger {
 
   // Logs
   debug(message: string): void {
-    this.log('debug', message);
+    this.keepSpinner(() => {
+      this.log('debug', message);
+    });
   }
 
   info(message: string): void {
-    this.log('info', message);
+    this.keepSpinner(() => {
+      this.log('info', message);
+    });
   }
 
   warn(message: string): void {
-    this.log('warn', message);
+    this.keepSpinner(() => {
+      this.log('warn', message);
+    });
   }
 
   error(message: string | Error): void {
-    if (typeof message === 'string') {
-      this.log('error', message);
-    } else {
-      if (message.stack) {
-        this.log('error', message.stack);
+    this.keepSpinner(() => {
+      if (typeof message === 'string') {
+        this.log('error', message);
       } else {
-        this.log('error', `${message.name}: ${message.message}`);
+        if (message.stack) {
+          this.log('error', message.stack);
+        } else {
+          this.log('error', `${message.name}: ${message.message}`);
+        }
       }
-    }
+    });
   }
 
   log(level: LogLevel, message: string): void {
-    this.keepSpinner(() => {
-      for (let line of message.split('\n')) {
-        // Format message
-        switch (level) {
-          case 'debug':
-            line = chalk.gray(line);
-            break;
+    if (!this.shouldLog(level)) return;
 
-          case 'warn':
-            line = chalk.yellow(line);
-            break;
-
-          case 'error':
-          case 'fail':
-            line = chalk.red(line);
-        }
-
-        this.spinner.stopAndPersist({ text: line, symbol: SYMBOLS[level] ?? ' ' });
-      }
-    });
+    for (const line of this.formatLog(level, message)) {
+      this.spinner.stopAndPersist({ text: line, symbol: SYMBOLS[level] ?? ' ' });
+    }
   }
 }
 

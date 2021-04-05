@@ -9,6 +9,8 @@ import { DBCreateExecutorSchema } from './schema';
 // Executor
 export default async function(options: DBCreateExecutorSchema, context: ExecutorContext) {
   try {
+    logger.setOptions(options);
+
     // Load project
     if (!context.projectName) {
       logger.error('Missing project in context');

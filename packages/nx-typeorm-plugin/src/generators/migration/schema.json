@@ -30,6 +30,13 @@
       "description": "The migration's target connection.",
       "default": "default",
       "x-prompt": "What is the target connection for the migration?"
+    },
+    "verbosity": {
+      "alias": "v",
+      "type": "string",
+      "enum": ["debug", "info", "warn", "error"],
+      "description": "Verbosity level.",
+      "default": "info"
     }
   },
   "required": ["name"]

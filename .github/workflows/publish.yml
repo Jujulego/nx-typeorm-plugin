@@ -1,7 +1,7 @@
-name: Build
+name: Publish
 
 on:
-  pull_request:
+  push:
     branches: [ master ]
 
 env:
@@ -32,12 +32,19 @@ jobs:
       - name: Lint
         run: yarn nx run-many --target=lint --all
 
-  build:
+  publish:
     runs-on: ubuntu-latest
+    environment: npm
     needs: [ lint ]
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Download build artefacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: dist
 
       - name: Use Node.js 14.x
         uses: actions/setup-node@v2.1.5
@@ -53,14 +60,36 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Update version number
+        id: version
+        run: echo "::set-output name=result::$(yarn workspace @jujulego/nx-typeorm-plugin version apply --json)"
+
       - name: Build plugin
         run: yarn nx build nx-typeorm-plugin
+
+      - name: Commit & Tag
+        run: |
+          git config --global user.name 'Boobrie'
+          git config --global user.email 'boobrie@users.noreply.github.com'
+
+          git commit -am "update(workspace): set version ${{ fromJSON(steps.version.outputs.result).newVersion }}"
+          git tag "v${{ fromJSON(steps.version.outputs.result).newVersion }}"
+
+      - name: Publish to NPM
+        run: yarn publish --access public ./dist/packages/nx-typeorm-plugin
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push new versioon
+        run: |
+          git push
+          git push --tags
 
       - name: Archive build artefacts
         uses: actions/upload-artifact@v2
         with:
-          name: build
-          path: dist
+          name: nx-typeorm-plugin
+          path: dist/packages/nx-typeorm-plugin
 
   sonarcloud:
     runs-on: ubuntu-latest
