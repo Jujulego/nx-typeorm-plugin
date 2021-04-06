@@ -33,10 +33,5 @@ jobs:
           git add .yarn
           git commit -m "update(workspace): setup version update"
 
-      - name: Publish to NPM
-        run: npm publish --access public ./dist/packages/nx-typeorm-plugin
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Push commit
         run: git push
