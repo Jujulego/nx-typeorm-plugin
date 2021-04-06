@@ -30,7 +30,8 @@ jobs:
           git config --global user.name 'Boobrie'
           git config --global user.email 'boobrie@users.noreply.github.com'
 
-          git commit -am "update(workspace): setup version update"
+          git add .yarn
+          git commit -m "update(workspace): setup version update"
 
       - name: Publish to NPM
         run: npm publish --access public ./dist/packages/nx-typeorm-plugin
