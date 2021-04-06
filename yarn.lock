@@ -685,6 +685,8 @@ __metadata:
 "@jujulego/nx-typeorm-plugin@workspace:packages/nx-typeorm-plugin":
   version: 0.0.0-use.local
   resolution: "@jujulego/nx-typeorm-plugin@workspace:packages/nx-typeorm-plugin"
+  peerDependencies:
+    "@nrwl/cli": ^11.6.1
   languageName: unknown
   linkType: soft
 
