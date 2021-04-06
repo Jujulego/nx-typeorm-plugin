@@ -1,0 +1,39 @@
+name: Setup version update
+
+on:
+  pull_request:
+    types: [ opened, reopened ]
+
+env:
+  NX_BRANCH: ${{ github.event.number }}
+  NX_RUN_GROUP: ${{ github.run_id }}
+
+jobs:
+  setup-version-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.x
+
+      - name: Setup version update
+        run: yarn workspace @jujulego/nx-typeorm-plugin version --deferred prerelease
+
+      - name: Commit
+        run: |
+          git config --global user.name 'Boobrie'
+          git config --global user.email 'boobrie@users.noreply.github.com'
+
+          git commit -am "update(workspace): setup version update"
+
+      - name: Publish to NPM
+        run: npm publish --access public ./dist/packages/nx-typeorm-plugin
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push commit
+        run: git push
