@@ -14,5 +14,9 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.ts",
     "!**/*.spec.ts"
+  ],
+  coverageReporters: [
+    'text',
+    ['lcovonly', { projectRoot: 'packages/nx-typeorm-plugin' }]
   ]
 };
