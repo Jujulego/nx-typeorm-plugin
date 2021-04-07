@@ -54,7 +54,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Test
-        run: yarn nx run-many --target=test --all --codeCoverage --coverageReporters=text,lcovonly
+        run: yarn nx run-many --target=test --all --codeCoverage
 
       - name: Archive coverage artefacts
         uses: actions/upload-artifact@v2
