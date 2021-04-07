@@ -11,4 +11,8 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/packages/nx-typeorm-plugin',
+  collectCoverageFrom: [
+    "src/**/*.ts",
+    "!**/*.spec.ts"
+  ]
 };
