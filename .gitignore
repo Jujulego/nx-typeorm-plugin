@@ -29,7 +29,6 @@
 /connect.lock
 /coverage
 /libpeerconnection.log
-/lint
 npm-debug.log
 yarn-error.log
 testem.log
