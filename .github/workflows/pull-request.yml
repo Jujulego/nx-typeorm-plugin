@@ -30,7 +30,13 @@ jobs:
         run: yarn install --immutable
 
       - name: Lint
-        run: yarn nx run-many --target=lint --all
+        run: yarn nx run-many --target=lint --configuration=ci --all
+
+      - name: Archive lint artefacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint
+          path: lint
 
   test:
     runs-on: ubuntu-latest
@@ -107,6 +113,12 @@ jobs:
         with:
           name: coverage
           path: coverage
+
+      - name: Download lint artefacts
+        uses: actions/download-artifact@v2
+        with:
+          name: lint
+          path: lint
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v1.5

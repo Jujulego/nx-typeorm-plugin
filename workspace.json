@@ -10,8 +10,15 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["packages/nx-typeorm-plugin/**/*.ts"]
+          },
+          "configurations": {
+            "ci": {
+              "format": "json",
+              "outputFile": "lint/packages/nx-typeorm-plugin.json"
+            }
           }
         },
         "test": {
