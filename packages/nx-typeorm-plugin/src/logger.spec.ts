@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { mockedOra } from '../mock/ora';
+import { mockedOra } from '../mocks/ora';
 import { Logger } from './logger';
 
 // Setup

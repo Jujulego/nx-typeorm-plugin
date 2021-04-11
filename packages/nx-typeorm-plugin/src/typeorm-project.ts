@@ -5,7 +5,7 @@ import path from 'path';
 import { logger } from './logger';
 import { TypeormLogger } from './typeorm-logger';
 
-// Reader
+// Project
 export class TypeormProject {
   // Attributes
   private _tsNodeService?: tsnode.Service;

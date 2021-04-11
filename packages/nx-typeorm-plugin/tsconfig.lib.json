@@ -6,6 +6,9 @@
     "declaration": true,
     "types": ["node"]
   },
-  "exclude": ["**/*.spec.ts", "mock/**.ts"],
+  "exclude": [
+    "mocks/**.ts",
+    "**/*.spec.ts"
+  ],
   "include": ["**/*.ts"]
 }
