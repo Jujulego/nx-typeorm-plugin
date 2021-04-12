@@ -1,5 +1,4 @@
 import { ConnectionOptions, ConnectionOptionsReader } from 'typeorm';
-import * as tsnode from 'ts-node';
 
 import { logger } from './logger';
 import { TypeormLogger } from './typeorm-logger';
