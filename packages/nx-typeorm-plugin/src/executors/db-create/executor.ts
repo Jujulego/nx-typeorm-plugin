@@ -32,23 +32,27 @@ export default async function(options: DBCreateExecutorSchema, context: Executor
     logger.spin(`Creating database ${config.database} ...`);
     const connection = await toProject.createConnection({ ...config, database: 'postgres' });
 
-    // Create database if missing
-    const [{ count }] = await connection.query(
-      `select count(distinct datname) as count from pg_database where datname = $1`,
-      [config.database]
-    );
+    try {
+      // Create database if missing
+      const [{ count }] = await connection.query(
+        `select count(distinct datname) as count from pg_database where datname = $1`,
+        [config.database]
+      );
 
-    if (count === '0') {
-      logger.debug(`Database ${config.database} does not exists`);
-      await connection.query(`create database "${config.database}"`);
+      if (count === '0') {
+        logger.debug(`Database ${config.database} does not exists`);
+        await connection.query(`create database "${config.database}"`);
 
-      logger.succeed(`Database ${config.database} created`);
-    } else {
-      logger.stop();
-      logger.info(`Database ${config.database} already exists`);
+        logger.succeed(`Database ${config.database} created`);
+      } else {
+        logger.stop();
+        logger.info(`Database ${config.database} already exists`);
+      }
+
+      return { success: true };
+    } finally {
+      await connection.close();
     }
-
-    return { success: true };
   } catch (error) {
     logger.stop();
     logger.error(error);
