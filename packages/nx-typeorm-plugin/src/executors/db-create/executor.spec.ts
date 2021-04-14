@@ -1,9 +1,10 @@
 import { ExecutorContext } from '@nrwl/devkit';
+import { Connection, ConnectionOptions } from 'typeorm';
 
 import { logger } from '../../logger';
 import { TypeormProject } from '../../typeorm-project';
+
 import executor from './executor';
-import { Connection, ConnectionOptions } from 'typeorm';
 
 // Types
 type MCTP = jest.MockedClass<typeof TypeormProject>;
@@ -111,9 +112,9 @@ describe('db-create executor', () => {
       [options.database]
     );
 
-    expect(connection.query).toHaveBeenCalledWith(
-      `create database "${options.database}"`
-    );
+    expect(connection.query).toHaveBeenCalledWith(`create database "${options.database}"`);
+
+    expect(logger.succeed).toHaveBeenCalledWith(expect.stringContaining(options.database!));
 
     expect(connection.close).toBeCalled();
   });
@@ -138,6 +139,8 @@ describe('db-create executor', () => {
       `select count(distinct datname) as count from pg_database where datname = $1`,
       [options.database]
     );
+
+    expect(logger.info).toHaveBeenCalledWith(expect.stringContaining(options.database!));
 
     expect(connection.close).toBeCalled();
   });

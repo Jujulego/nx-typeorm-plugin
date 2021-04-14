@@ -32,21 +32,25 @@ export default async function(options: DBMigrateExecutorSchema, context: Executo
     logger.spin(`Migrating database ${config.database} ...`);
     const connection = await toProject.createConnection(config);
 
-    // Migrate database
-    const migrations = await connection.runMigrations({ transaction: 'each' });
+    try {
+      // Migrate database
+      const migrations = await connection.runMigrations({ transaction: 'each' });
 
-    if (migrations.length > 0) {
-      logger.succeed(`${migrations.length} migrations executed:`);
+      if (migrations.length > 0) {
+        logger.succeed(`${migrations.length} migrations executed:`);
 
-      for (const mig of migrations) {
-        logger.succeed(`- ${mig.name}`);
+        for (const mig of migrations) {
+          logger.succeed(`- ${mig.name}`);
+        }
+      } else {
+        logger.stop();
+        logger.info('Nothing to do');
       }
-    } else {
-      logger.stop();
-      logger.info('Nothing to do');
-    }
 
-    return { success: true };
+      return { success: true };
+    } finally {
+      await connection.close();
+    }
   } catch (error) {
     logger.stop();
     logger.error(error);
