@@ -141,4 +141,30 @@ describe('db-create executor', () => {
 
     expect(connection.close).toBeCalled();
   });
+
+  it('should fail if an error is thrown', async () => {
+    const error = new Error('Test error');
+    connection.query.mockRejectedValue(error);
+
+    // Call
+    await expect(executor({ database }, ctx))
+      .resolves.toEqual({
+        success: false
+      });
+
+    // Checks
+    const project = (TypeormProject as MCTP).mock.instances[0];
+
+    expect(project.getOptions).toHaveBeenCalledWith(database);
+    expect(project.createConnection).toHaveBeenCalledWith({ ...options, database: 'postgres' });
+
+    expect(connection.query).toBeCalledTimes(1);
+    expect(connection.query).toHaveBeenCalledWith(
+      `select count(distinct datname) as count from pg_database where datname = $1`,
+      [options.database]
+    );
+
+    expect(connection.close).toBeCalled();
+    expect(logger.error).toHaveBeenCalledWith(error);
+  });
 });
