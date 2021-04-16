@@ -137,13 +137,17 @@ describe('typeormExecutor', () => {
 
   it('should call failing async* executor', async () => {
     const error = new Error('test');
-    const executor = jest.fn(async function* () { // eslint-disable-line require-yield
+    const executor = jest.fn(async function* () {
+      yield { success: true };
       throw error;
     });
 
     // Call
+    let i = 0;
+
     for await (const res of typeormExecutor(executor)({}, executorContext)) {
-      expect(res).toEqual({ success: false });
+      expect(res).toEqual({ success: i === 0 });
+      ++i;
     }
 
     // Checks
