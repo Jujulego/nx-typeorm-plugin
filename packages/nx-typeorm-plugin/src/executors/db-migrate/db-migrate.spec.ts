@@ -51,7 +51,7 @@ describe('db-migrate executor', () => {
 
     // Checks
     expect(testBed.context.typeormProject.getOptions).toHaveBeenCalledWith(testBed.database);
-    expect(testBed.context.typeormProject.createConnection).not.toHaveBeenCalledWith(testBed.options);
+    expect(testBed.context.typeormProject.createConnection).toHaveBeenCalledWith(testBed.options);
 
     expect(testBed.connection.runMigrations).toHaveBeenCalledWith({ transaction: 'each' });
 
@@ -71,7 +71,7 @@ describe('db-migrate executor', () => {
 
     // Checks
     expect(testBed.context.typeormProject.getOptions).toHaveBeenCalledWith(testBed.database);
-    expect(testBed.context.typeormProject.createConnection).not.toHaveBeenCalledWith(testBed.options);
+    expect(testBed.context.typeormProject.createConnection).toHaveBeenCalledWith(testBed.options);
 
     expect(testBed.connection.runMigrations).toHaveBeenCalledWith({ transaction: 'each' });
     expect(testBed.connection.close).toBeCalled();
