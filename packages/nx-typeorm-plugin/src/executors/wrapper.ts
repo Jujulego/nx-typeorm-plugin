@@ -42,17 +42,17 @@ export class TypeormExecutorContext implements ExecutorContext {
 }
 
 // Wrapper
-export type TypeormExecutor<O> = (options: O, context: TypeormExecutorContext) => ReturnType<Executor<O>>
+export type TypeormExecutor<O, R extends ReturnType<Executor<O>>> = (options: O, context: TypeormExecutorContext) => R;
 
-export function typeormExecutor<O extends Partial<LoggerOptions>>(executor: TypeormExecutor<O>): Executor<O> {
-  return function (options: O, context: ExecutorContext): ReturnType<Executor<O>> {
+export function typeormExecutor<O extends Partial<LoggerOptions>, R extends ReturnType<Executor<O>>>(executor: TypeormExecutor<O, R>) {
+  return function (options: O, context: ExecutorContext): R {
     // Setup logger
     logger.setOptions({
       verbosity: options.verbosity
     });
 
     // Run executor
-    const result = executor(options, new TypeormExecutorContext(context));
+    const result = executor(options, new TypeormExecutorContext(context)) as ReturnType<Executor<O>>;
 
     if (result instanceof Promise) {
       return (async function () {
@@ -66,7 +66,7 @@ export function typeormExecutor<O extends Partial<LoggerOptions>>(executor: Type
         } finally {
           logger.stop();
         }
-      })();
+      })() as R;
     } else {
       return (async function* () {
         try {
@@ -77,11 +77,11 @@ export function typeormExecutor<O extends Partial<LoggerOptions>>(executor: Type
           logger.stop();
           logger.error(error);
 
-          return { success: false };
+          yield { success: false };
         } finally {
           logger.stop();
         }
-      })();
+      })() as R;
     }
   }
 }
