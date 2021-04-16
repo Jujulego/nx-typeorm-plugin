@@ -45,7 +45,7 @@ beforeEach(() => {
 describe('db-migrate executor', () => {
   // Tests
   it('should fail (unsupported database type)', async () => {
-    ctx.typeormProject.createConnection
+    ctx.typeormProject.getOptions
       .mockResolvedValue({
         ...options,
         type: 'mysql'
