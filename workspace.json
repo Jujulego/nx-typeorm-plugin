@@ -73,50 +73,11 @@
       "sourceRoot": "samples/node-sample/src",
       "projectType": "application",
       "targets": {
-        "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/samples/node-sample",
-            "main": "samples/node-sample/src/main.ts",
-            "tsConfig": "samples/node-sample/tsconfig.app.json",
-            "assets": ["samples/node-sample/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "samples/node-sample/src/environments/environment.ts",
-                  "with": "samples/node-sample/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
         "db-create": {
           "executor": "./dist/packages/nx-typeorm-plugin:db-create"
         },
         "db-migrate": {
           "executor": "./dist/packages/nx-typeorm-plugin:db-migrate"
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": { "buildTarget": "node-sample:build" }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["samples/node-sample/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/samples/node-sample"],
-          "options": {
-            "jestConfig": "samples/node-sample/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     }

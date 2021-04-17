@@ -3,11 +3,18 @@ import { PlatformTools } from 'typeorm/platform/PlatformTools';
 
 import { logger } from './logger';
 
+// Types
+export type LogLevel = 'log' | 'info' | 'warn';
+
 // Logger
 export class TypeormLogger extends AdvancedConsoleLogger {
+  // Attribute
+  private readonly _options?: LoggerOptions;
+
   // Constructor
-  constructor(private _options?: LoggerOptions) {
-    super(_options);
+  constructor(options?: LoggerOptions) {
+    super(options);
+    this._options = options;
   }
 
   // Methods
@@ -28,10 +35,8 @@ export class TypeormLogger extends AdvancedConsoleLogger {
       // Log query
       const sql = query + (parameters?.length ? " -- PARAMETERS: " + this.stringifyParams(parameters) : "");
 
-      logger.keepSpinner(() => {
-        logger.fail(PlatformTools.highlightSql(sql));
-        logger.fail(error);
-      });
+      logger.error(PlatformTools.highlightSql(sql));
+      logger.error(error);
     }
   }
 
@@ -39,7 +44,7 @@ export class TypeormLogger extends AdvancedConsoleLogger {
     // Log query
     const sql = query + (parameters?.length ? " -- PARAMETERS: " + this.stringifyParams(parameters) : "");
     logger.warn(PlatformTools.highlightSql(sql));
-    logger.warn(time.toString());
+    logger.warn(`took ${time}ms`);
   }
 
   logSchemaBuild(message: string): void {
@@ -54,7 +59,7 @@ export class TypeormLogger extends AdvancedConsoleLogger {
     }
   }
 
-  log(level: 'log' | 'info' | 'warn', message: any): void {
+  log(level: LogLevel, message: any): void {
     if (this.hasLevel(level)) {
       // Log query
       switch (level) {

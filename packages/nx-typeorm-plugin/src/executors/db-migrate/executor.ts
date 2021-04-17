@@ -1,37 +1,24 @@
-import { ExecutorContext } from '@nrwl/devkit';
-import path from 'path';
-
 import { logger } from '../../logger';
-import { TypeormProject } from '../../typeorm-project';
+import { typeormExecutor, TypeormExecutorContext } from '../wrapper';
 
 import { DBMigrateExecutorSchema } from './schema';
 
 // Executor
-export default async function(options: DBMigrateExecutorSchema, context: ExecutorContext) {
+export async function dbMigrate(options: DBMigrateExecutorSchema, context: TypeormExecutorContext) {
+  // Read typeorm config
+  const project = context.typeormProject;
+  const config = await project.getOptions(options.database);
+
+  if (config.type !== 'postgres') {
+    logger.error(`Unsupported database type ${config.type}`);
+    return { success: false };
+  }
+
+  // Connect to database
+  logger.spin(`Migrating database ${config.database} ...`);
+  const connection = await project.createConnection(config);
+
   try {
-    logger.setOptions(options);
-
-    // Load project
-    if (!context.projectName) {
-      logger.error('Missing project in context');
-      return { success: false };
-    }
-
-    const nxProject = context.workspace.projects[context.projectName]
-    const toProject = new TypeormProject(path.resolve(context.root, nxProject.root));
-
-    // Read typeorm config
-    const config = await toProject.getOptions(options.database);
-
-    if (config.type !== 'postgres') {
-      logger.error(`Unsupported database type ${config.type}`);
-      return { success: false };
-    }
-
-    // Connect to database
-    logger.spin(`Migrating database ${config.database} ...`);
-    const connection = await toProject.createConnection(config);
-
     // Migrate database
     const migrations = await connection.runMigrations({ transaction: 'each' });
 
@@ -47,10 +34,9 @@ export default async function(options: DBMigrateExecutorSchema, context: Executo
     }
 
     return { success: true };
-  } catch (error) {
-    logger.stop();
-    logger.error(error);
-
-    return { success: false };
+  } finally {
+    await connection.close();
   }
 }
+
+export default typeormExecutor(dbMigrate);

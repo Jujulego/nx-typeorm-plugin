@@ -48,7 +48,9 @@ export class Logger {
   }
 
   setOptions(options: Partial<LoggerOptions>) {
-    this.options.verbosity = options.verbosity ?? this.options.verbosity;
+    if (options.verbosity) {
+      this.options.verbosity = options.verbosity;
+    }
   }
 
   private shouldLog(level: LogLevel): boolean {
@@ -79,7 +81,7 @@ export class Logger {
           default:
             return line;
         }
-      })
+      });
   }
 
   // Spinner
@@ -100,6 +102,14 @@ export class Logger {
   }
 
   // Logs
+  protected log(level: LogLevel, message: string): void {
+    if (!this.shouldLog(level)) return;
+
+    for (const line of this.formatLog(level, message)) {
+      this.spinner.stopAndPersist({ text: line, symbol: SYMBOLS[level] });
+    }
+  }
+
   debug(message: string): void {
     this.keepSpinner(() => {
       this.log('debug', message);
@@ -130,14 +140,6 @@ export class Logger {
         }
       }
     });
-  }
-
-  log(level: LogLevel, message: string): void {
-    if (!this.shouldLog(level)) return;
-
-    for (const line of this.formatLog(level, message)) {
-      this.spinner.stopAndPersist({ text: line, symbol: SYMBOLS[level] ?? ' ' });
-    }
   }
 }
 
