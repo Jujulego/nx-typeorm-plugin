@@ -1,6 +1,6 @@
 {
   "name": "@jujulego/nx-typeorm-plugin",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "license": "MIT",
   "repository": "github:jujulego/nx-typeorm-plugin",
   "main": "src/index.js",
