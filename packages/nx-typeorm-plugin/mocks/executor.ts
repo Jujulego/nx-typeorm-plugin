@@ -18,6 +18,7 @@ export class ExecutorTestBed {
   };
 
   connection = {
+    options: this.options,
     runMigrations: jest.fn(),
     query: jest.fn(),
     close: jest.fn()
