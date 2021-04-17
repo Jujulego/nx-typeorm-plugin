@@ -20,26 +20,6 @@ beforeEach(() => {
 // Suite
 describe('db-migrate executor', () => {
   // Tests
-  it('should fail (unsupported database type)', async () => {
-    testBed.context.typeormProject.getOptions
-      .mockResolvedValue({
-        ...testBed.options,
-        type: 'mysql'
-      });
-
-    // Call
-    await expect(testBed.callExecutor(dbMigrate, { database: testBed.database }))
-      .resolves.toEqual({
-        success: false
-      });
-
-    // Checks
-    expect(testBed.context.typeormProject.getOptions).toHaveBeenCalledWith(testBed.database);
-    expect(testBed.context.typeormProject.createConnection).not.toHaveBeenCalled();
-
-    expect(logger.error).toHaveBeenCalledWith('Unsupported database type mysql');
-  });
-
   it('should run, print migrations and succeed', async () => {
     testBed.connection.runMigrations.mockResolvedValue([{ name: 'TestMigration' }]);
 

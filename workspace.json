@@ -31,6 +31,7 @@
             "packageJson": "packages/nx-typeorm-plugin/package.json",
             "main": "packages/nx-typeorm-plugin/src/index.ts",
             "assets": [
+              "packages/nx-typeorm-plugin/.npmignore",
               "packages/nx-typeorm-plugin/*.md",
               {
                 "input": "./packages/nx-typeorm-plugin/src",

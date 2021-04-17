@@ -4,6 +4,7 @@
   "license": "MIT",
   "repository": "github:jujulego/nx-typeorm-plugin",
   "main": "src/index.js",
+  "keywords": ["nx", "typeorm"],
   "generators": "./generators.json",
   "executors": "./executors.json",
   "peerDependencies": {

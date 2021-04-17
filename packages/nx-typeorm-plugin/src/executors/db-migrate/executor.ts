@@ -9,11 +9,6 @@ export async function dbMigrate(options: DBMigrateExecutorSchema, context: Typeo
   const project = context.typeormProject;
   const config = await project.getOptions(options.database);
 
-  if (config.type !== 'postgres') {
-    logger.error(`Unsupported database type ${config.type}`);
-    return { success: false };
-  }
-
   // Connect to database
   logger.spin(`Migrating database ${config.database} ...`);
   const connection = await project.createConnection(config);
