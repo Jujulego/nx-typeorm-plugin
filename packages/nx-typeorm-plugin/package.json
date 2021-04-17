@@ -1,10 +1,13 @@
 {
   "name": "@jujulego/nx-typeorm-plugin",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "license": "MIT",
   "repository": "github:jujulego/nx-typeorm-plugin",
   "main": "src/index.js",
-  "keywords": ["nx", "typeorm"],
+  "keywords": [
+    "nx",
+    "typeorm"
+  ],
   "generators": "./generators.json",
   "executors": "./executors.json",
   "peerDependencies": {
