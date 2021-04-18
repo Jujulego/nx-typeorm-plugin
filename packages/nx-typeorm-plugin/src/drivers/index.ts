@@ -1,3 +1,4 @@
 export { DatabaseServiceDriver } from './database-service-driver';
 
-import './psql';
+// Import drivers
+import './postgres';

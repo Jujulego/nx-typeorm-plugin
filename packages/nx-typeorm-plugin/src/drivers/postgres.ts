@@ -2,7 +2,7 @@ import { ConnectionDatabase, DatabaseServiceDriver } from './database-service-dr
 
 // Class
 @DatabaseServiceDriver.register('postgres')
-export class PsqlDriver extends DatabaseServiceDriver {
+export class PostgresDriver extends DatabaseServiceDriver {
   // Statics
   static defaultDatabase: ConnectionDatabase = 'postgres';
 
@@ -16,7 +16,7 @@ export class PsqlDriver extends DatabaseServiceDriver {
     return count !== '0';
   }
 
-  async createDatabase(database = 'postgres'): Promise<void> {
+  async createDatabase(database = PostgresDriver.defaultDatabase): Promise<void> {
     await this.connection.query(`create database "${database}"`);
   }
 }

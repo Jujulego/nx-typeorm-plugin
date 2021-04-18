@@ -41,7 +41,7 @@ export abstract class DatabaseServiceDriver {
 
     // Get driver
     const driver = this.getDriver(options.type);
-    options = { ...options, database: driver?.defaultDatabase } as ConnectionOptions;
+    options = { ...options, database: driver.defaultDatabase } as ConnectionOptions;
 
     // Connect to the server
     const connection = await project.createConnection(options);
