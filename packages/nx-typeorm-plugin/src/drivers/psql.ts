@@ -1,8 +1,8 @@
-import { ConnectionDatabase, Driver } from './driver';
+import { ConnectionDatabase, DatabaseServiceDriver } from './database-service-driver';
 
 // Class
-@Driver.register('postgres')
-export class PsqlDriver extends Driver {
+@DatabaseServiceDriver.register('postgres')
+export class PsqlDriver extends DatabaseServiceDriver {
   // Statics
   static defaultDatabase: ConnectionDatabase = 'postgres';
 

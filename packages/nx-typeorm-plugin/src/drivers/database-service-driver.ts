@@ -1,12 +1,13 @@
 import { Connection, ConnectionOptions } from 'typeorm';
+import { TypeormProject } from '../typeorm-project';
 
 // Types
 export type ConnectionType = ConnectionOptions['type'];
 export type ConnectionDatabase = Exclude<ConnectionOptions['database'], undefined>;
-export type DriverClass = typeof Driver & { new (connection: Connection): Driver };
+export type DriverClass = typeof DatabaseServiceDriver & { new (connection: Connection): DatabaseServiceDriver };
 
 // Model
-export abstract class Driver {
+export abstract class DatabaseServiceDriver {
   // Constructor
   constructor(protected readonly connection: Connection) {}
 
@@ -16,14 +17,10 @@ export abstract class Driver {
 
   static register<D extends DriverClass>(type: ConnectionType) {
     return function (driver: D) {
-      Driver.drivers[type] = driver;
+      DatabaseServiceDriver.drivers[type] = driver;
 
       return driver;
     }
-  }
-
-  static isSupported(type: ConnectionType): boolean {
-    return !!this.drivers[type];
   }
 
   private static getDriver(type: ConnectionType): DriverClass {
@@ -36,17 +33,32 @@ export abstract class Driver {
     return driver;
   }
 
-  static adaptOptions(options: ConnectionOptions): ConnectionOptions {
-    const driver = this.getDriver(options.type);
-    return { ...options, database: driver.defaultDatabase } as ConnectionOptions;
-  }
+  static async connect(project: TypeormProject, options?: string | ConnectionOptions): Promise<DatabaseServiceDriver> {
+    // Get options
+    if (!options || typeof options === 'string') {
+      options = await project.getOptions(options);
+    }
 
-  static buildDriver(connection: Connection): Driver {
-    const driver = this.getDriver(connection.options.type);
+    // Get driver
+    const driver = this.getDriver(options.type);
+    options = { ...options, database: driver?.defaultDatabase } as ConnectionOptions;
+
+    // Connect to the server
+    const connection = await project.createConnection(options);
+
     return new driver(connection);
   }
 
   // Methods
   abstract databaseExists(database?: ConnectionDatabase): Promise<boolean>;
   abstract createDatabase(database?: ConnectionDatabase): Promise<void>;
+
+  async close(): Promise<void> {
+    await this.connection.close();
+  }
+
+  // Properties
+  get options(): ConnectionOptions {
+    return this.connection.options;
+  }
 }
