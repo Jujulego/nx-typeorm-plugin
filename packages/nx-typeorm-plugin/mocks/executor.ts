@@ -1,5 +1,8 @@
 import { Executor } from '@nrwl/devkit';
+import { Connection } from 'typeorm';
 
+import { DatabaseServiceDriver } from '../src/drivers';
+import { ConnectionDatabase } from '../src/drivers/database-service-driver';
 import { TypeormExecutor, TypeormExecutorContext } from '../src/executors/wrapper';
 
 // Test bed
@@ -18,10 +21,25 @@ export class ExecutorTestBed {
   };
 
   connection = {
+    options: this.options,
     runMigrations: jest.fn(),
     query: jest.fn(),
     close: jest.fn()
   };
+
+  driver = (() => {
+    const connection = this.connection as unknown as Connection;
+
+    return new class extends DatabaseServiceDriver {
+      constructor() {
+        super(connection);
+      }
+
+      databaseExists = jest.fn<Promise<boolean>, [ConnectionDatabase]>();
+      createDatabase = jest.fn<Promise<void>, [ConnectionDatabase]>();
+      close = jest.fn<Promise<void>, []>();
+    }
+  })();
 
   context = {
     typeormProject: {
@@ -32,6 +50,10 @@ export class ExecutorTestBed {
 
   // Methods
   setupMocks() {
+    jest.spyOn(DatabaseServiceDriver, 'connect')
+      .mockResolvedValue(this.driver);
+
+    this.driver.databaseExists.mockResolvedValue(true);
     this.context.typeormProject.getOptions.mockResolvedValue(this.options);
     this.context.typeormProject.createConnection.mockResolvedValue(this.connection);
   }
