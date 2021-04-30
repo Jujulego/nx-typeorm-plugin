@@ -43,7 +43,7 @@ Add the target _db-create_ to your project's config in your `workspace.json`:
 }
 ```
 
-__Warning only `postgresql` databases are supported.__
+__Warning only `postgresql` and `mysql` databases are supported.__
 
 #### Options
 | name     | default   | description
