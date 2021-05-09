@@ -1,5 +1,6 @@
 import { Connection, ConnectionOptions, ConnectionOptionsReader, getConnectionManager } from 'typeorm';
 import * as tsnode from 'ts-node';
+import * as tsconfig from 'tsconfig-paths';
 import path from 'path';
 
 import { logger } from './logger';
@@ -40,6 +41,17 @@ export class TypeormProject {
 
   protected _setupTsNode() {
     if (!this._tsNodeService) {
+      // Load paths
+      const config = tsconfig.loadConfig(this.root);
+
+      if (config.resultType === 'success') {
+        tsconfig.register(config);
+        logger.debug('Typescript paths loaded');
+      } else {
+        logger.warn('Failed to load typescript paths');
+      }
+
+      // Launch tsnode
       const project = path.join(this.root, 'tsconfig.json');
       this._tsNodeService = tsnode.register({
         project,

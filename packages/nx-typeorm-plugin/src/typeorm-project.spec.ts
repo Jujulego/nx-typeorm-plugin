@@ -1,14 +1,13 @@
 import { ConnectionOptions, ConnectionOptionsReader } from 'typeorm';
+import path from 'path';
 
 import { logger } from './logger';
 import { TypeormLogger } from './typeorm-logger';
 import { TypeormProject } from './typeorm-project';
-import MockedClass = jest.MockedClass;
-import MockedFunction = jest.MockedFunction;
-import path from 'path';
 
 jest.mock('typeorm');
 jest.mock('ts-node');
+jest.mock('tsconfig-paths');
 
 // Setup
 beforeEach(() => {
@@ -43,10 +42,10 @@ describe('TypeormProject.getOptions', () => {
     });
 
     // Mock connection data
-    const mockGet = (ConnectionOptionsReader as MockedClass<typeof ConnectionOptionsReader>)
+    const mockGet = (ConnectionOptionsReader as jest.MockedClass<typeof ConnectionOptionsReader>)
       .mock.instances[0].get;
 
-    (mockGet as MockedFunction<typeof mockGet>)
+    (mockGet as jest.MockedFunction<typeof mockGet>)
       .mockResolvedValue(options);
 
     // Test
