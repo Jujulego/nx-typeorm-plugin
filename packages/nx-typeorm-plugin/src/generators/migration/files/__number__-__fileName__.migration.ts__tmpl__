@@ -4,14 +4,14 @@ export class <%= className %><%= number %>Migration implements MigrationInterfac
   name = '<%= className %><%= timestamp %>'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    <% for (const { query } of sql.upQueries) { %>
-      await queryRunner.query(`<%- query %>`);
+    <% for (const query of ups) { %>
+      await queryRunner.query(<%- query %>);
     <% } %>
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    <% for (const { query } of sql.downQueries) { %>
-      await queryRunner.query(`<%- query %>`);
+    <% for (const query of downs) { %>
+      await queryRunner.query(<%- query %>);
     <% } %>
   }
 }
