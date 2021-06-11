@@ -1,19 +1,42 @@
-{
-  "type": "postgres",
-  "host": "localhost",
-  "port": "5432",
-  "database": "node-sample",
-  "username": "root",
-  "password": "root",
-  "logging": true,
-  "entities": [
-    "src/app/**/*.entity.ts"
-  ],
-  "migrations": [
-    "src/db/migrations/*.migration.ts"
-  ],
+[
+  {
+    "name": "postgres",
+    "type": "postgres",
+    "host": "localhost",
+    "port": "5432",
+    "database": "node-sample",
+    "username": "root",
+    "password": "root",
+    "logging": true,
+    "entities": [
+      "src/app/**/*.entity.ts"
+    ],
+    "migrations": [
+      "src/db/migrations/postgres/*.migration.ts"
+    ],
 
-  "cli": {
-    "migrationsDir": "src/db/migrations"
+    "cli": {
+      "migrationsDir": "src/db/migrations/postgres"
+    }
+  },
+  {
+    "name": "mysql",
+    "type": "mysql",
+    "host": "localhost",
+    "port": "3306",
+    "database": "node-sample",
+    "username": "root",
+    "password": "root",
+    "logging": true,
+    "entities": [
+      "src/app/**/*.entity.ts"
+    ],
+    "migrations": [
+      "src/db/migrations/mysql/*.migration.ts"
+    ],
+
+    "cli": {
+      "migrationsDir": "src/db/migrations/mysql"
+    }
   }
-}
+]

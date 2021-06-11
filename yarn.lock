@@ -1062,6 +1062,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mysql@npm:^2":
+  version: 2.15.18
+  resolution: "@types/mysql@npm:2.15.18"
+  dependencies:
+    "@types/node": "*"
+  checksum: e45226c4ac6e2d5b456dd8a5b18b5344ada2d21b571c822fe7e24fdf65b0d7b9ed56951d2ad1fd088a8fb9b0fd2c59090229529991f8e208ecda942cc022dc7b
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 14.14.37
   resolution: "@types/node@npm:14.14.37"
@@ -2101,6 +2110,13 @@ __metadata:
   version: 5.2.2
   resolution: "big.js@npm:5.2.2"
   checksum: ea33d7d25674df4253ae3667da7f48ade6cc8828cb4f2c3a7753f53975f10cebae57e0d1ecf84f1b920b5467262dc0d4f357e5e497b138472d0e64992a8402a4
+  languageName: node
+  linkType: hard
+
+"bignumber.js@npm:9.0.0":
+  version: 9.0.0
+  resolution: "bignumber.js@npm:9.0.0"
+  checksum: 5968a936fbd801d591d35756078c4c3755887346b703f7e77eb2a5506fe900ca7c48baa253c21ed42b45d1d5c7012b69ac57c3936295d16924b7fc257f22bb80
   languageName: node
   linkType: hard
 
@@ -6388,6 +6404,7 @@ fsevents@^1.2.7:
     "@nrwl/tao": 11.6.1
     "@nrwl/workspace": 11.6.1
     "@types/jest": 26.0.8
+    "@types/mysql": ^2
     "@types/node": 14.14.33
     "@typescript-eslint/eslint-plugin": 4.3.0
     "@typescript-eslint/parser": 4.3.0
@@ -6397,6 +6414,7 @@ fsevents@^1.2.7:
     eslint-config-prettier: 8.1.0
     jest: 26.2.2
     log-symbols: ^4.1.0
+    mysql: ^2.18.1
     ora: ^5.4.0
     pg: ^8.5.1
     prettier: 2.2.1
@@ -7035,6 +7053,18 @@ fsevents@^1.2.7:
   version: 0.0.7
   resolution: "mute-stream@npm:0.0.7"
   checksum: 698fe32d888ed57c041df482b5cd43f4f51db373191c2e658db728bddfb090294952e11eee585752b8c9e8a02e83c7e47fb6b1664dd1effc685ae38fb1d8bf95
+  languageName: node
+  linkType: hard
+
+"mysql@npm:^2.18.1":
+  version: 2.18.1
+  resolution: "mysql@npm:2.18.1"
+  dependencies:
+    bignumber.js: 9.0.0
+    readable-stream: 2.3.7
+    safe-buffer: 5.1.2
+    sqlstring: 2.3.1
+  checksum: 07c6c6c4424edeb51a28347f792f7456ef99b8e95caf01db02b7ddd385ae5623ac1e7534906a29f93e8b27a26f833f4da6e8ee947744860674c71022891f2ad9
   languageName: node
   linkType: hard
 
@@ -8328,7 +8358,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:1 || 2, readable-stream@npm:^2.0.0, readable-stream@npm:^2.0.1, readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.6, readable-stream@npm:^2.1.5, readable-stream@npm:^2.2.2, readable-stream@npm:^2.3.3, readable-stream@npm:^2.3.6, readable-stream@npm:~2.3.6":
+"readable-stream@npm:1 || 2, readable-stream@npm:2.3.7, readable-stream@npm:^2.0.0, readable-stream@npm:^2.0.1, readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.6, readable-stream@npm:^2.1.5, readable-stream@npm:^2.2.2, readable-stream@npm:^2.3.3, readable-stream@npm:^2.3.6, readable-stream@npm:~2.3.6":
   version: 2.3.7
   resolution: "readable-stream@npm:2.3.7"
   dependencies:
@@ -9285,6 +9315,13 @@ resolve@1.17.0:
   version: 1.0.3
   resolution: "sprintf-js@npm:1.0.3"
   checksum: 51df1bce9e577287f56822d79ac5bd94f6c634fccf193895f2a1d2db2e975b6aa7bc97afae9cf11d49b7c37fe4afc188ff5c4878be91f2c86eabd11c5df8b62c
+  languageName: node
+  linkType: hard
+
+"sqlstring@npm:2.3.1":
+  version: 2.3.1
+  resolution: "sqlstring@npm:2.3.1"
+  checksum: d10f04099cb454524324518ddd970bf9f4dce563088f57bf11a8b45f9eed25229ebbb6a2ad7ca95274734642b4e255bc88ff81f8d42e82561eb2c2ab2a676e07
   languageName: node
   linkType: hard
 
