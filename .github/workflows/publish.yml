@@ -1,141 +1,27 @@
-name: Publish
-
+name: Publish NPM package (pre-release)
 on:
   push:
-    branches: [ master ]
+    tags:
+      - 'v[0-9].[0-9]+.[0-9]+-*.[0-9]+'
 
 env:
-  NX_BRANCH: ${{ github.event.number }}
-  NX_RUN_GROUP: ${{ github.run_id }}
+  TAG: $(git describe --tags --abbrev=0)
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v1
         with:
-          node-version: 14.x
-
-      - uses: actions/cache@v2.1.4
-        with:
-          path: .yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn install --immutable
-
-      - name: Lint
-        run: yarn nx run-many --target=lint --all
-
-  test:
-    runs-on: ubuntu-latest
-    needs: [ lint ]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2.1.5
-        with:
-          node-version: 14.x
-
-      - uses: actions/cache@v2.1.4
-        with:
-          path: .yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn install --immutable
-
-      - name: Test
-        run: yarn nx run-many --target=test --all --codeCoverage
-
-      - name: Archive coverage artefacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage
-          path: coverage
-
-  publish:
-    runs-on: ubuntu-latest
-    environment: npm
-    needs: [ test ]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2.1.5
-        with:
-          node-version: 14.x
-          registry-url: https://registry.npmjs.org
-
-      - uses: actions/cache@v2.1.4
-        with:
-          path: .yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn install --immutable
-
-      - name: Update version number
-        id: version
-        run: echo "::set-output name=result::$(yarn workspace @jujulego/nx-typeorm-plugin version apply --json)"
-
-      - name: Build plugin
-        run: yarn nx build nx-typeorm-plugin
-
-      - name: Commit & Tag
-        run: |
-          git config --global user.name 'Boobrie'
-          git config --global user.email 'boobrie@users.noreply.github.com'
-
-          git commit -am "update(workspace): set version ${{ fromJSON(steps.version.outputs.result).newVersion }}"
-          git tag "v${{ fromJSON(steps.version.outputs.result).newVersion }}"
-
-      - name: Publish to NPM
-        run: npm publish --access public ./dist/packages/nx-typeorm-plugin
+          node-version: '12.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@digando'
+      - run: npm install
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Push new versioon
-        run: |
-          git push
-          git push --tags
-
-      - name: Archive build artefacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: nx-typeorm-plugin
-          path: dist/packages/nx-typeorm-plugin
-
-  sonarcloud:
-    runs-on: ubuntu-latest
-    needs: [ test ]
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-
-      - name: Download coverage artefacts
-        uses: actions/download-artifact@v2
-        with:
-          name: coverage
-          path: coverage
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v1.5
-        with:
-          projectBaseDir: 'packages/nx-typeorm-plugin'
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - run: npm run build
+      # Publish package with committed package version in package.json
+      - run: npm publish --tag beta
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
