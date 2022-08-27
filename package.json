@@ -30,7 +30,7 @@
     "help": "nx help"
   },
   "dependencies": {
-    "@nrwl/devkit": "11.6.1",
+    "@nrwl/devkit": "11.6.3",
     "chalk": "^4.1.0",
     "log-symbols": "^4.1.0",
     "ora": "^5.4.0",
@@ -41,14 +41,14 @@
     "typeorm": "^0.2.32"
   },
   "devDependencies": {
-    "@nrwl/cli": "11.6.1",
-    "@nrwl/eslint-plugin-nx": "11.6.1",
-    "@nrwl/jest": "11.6.1",
-    "@nrwl/linter": "11.6.1",
-    "@nrwl/node": "11.6.1",
-    "@nrwl/nx-plugin": "11.6.1",
-    "@nrwl/tao": "11.6.1",
-    "@nrwl/workspace": "11.6.1",
+    "@nrwl/cli": "11.6.3",
+    "@nrwl/eslint-plugin-nx": "11.6.3",
+    "@nrwl/jest": "11.6.3",
+    "@nrwl/linter": "11.6.3",
+    "@nrwl/node": "11.6.3",
+    "@nrwl/nx-plugin": "11.6.3",
+    "@nrwl/tao": "11.6.3",
+    "@nrwl/workspace": "11.6.3",
     "@types/jest": "26.0.8",
     "@types/mysql": "^2",
     "@types/node": "14.14.33",
