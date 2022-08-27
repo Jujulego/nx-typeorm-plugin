@@ -1,0 +1,5 @@
+releases:
+  "@jujulego/nx-typeorm-plugin": prerelease
+
+undecided:
+  - jujulego

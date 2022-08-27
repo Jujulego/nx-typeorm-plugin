@@ -1062,12 +1062,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mysql@npm:^2":
-  version: 2.15.18
-  resolution: "@types/mysql@npm:2.15.18"
+"@types/mysql@npm:2.15.21":
+  version: 2.15.21
+  resolution: "@types/mysql@npm:2.15.21"
   dependencies:
     "@types/node": "*"
-  checksum: e45226c4ac6e2d5b456dd8a5b18b5344ada2d21b571c822fe7e24fdf65b0d7b9ed56951d2ad1fd088a8fb9b0fd2c59090229529991f8e208ecda942cc022dc7b
+  checksum: 2cef07fbf51cddbd98b581203e567efa1fc55fb14d12914a41cf5d2dc68709ed0bfc56785773f7e9dd93ac9a1626422b347a674b1a918c0d5bc38bc4327e404f
   languageName: node
   linkType: hard
 
@@ -6404,7 +6404,7 @@ fsevents@^1.2.7:
     "@nrwl/tao": 11.6.1
     "@nrwl/workspace": 11.6.1
     "@types/jest": 26.0.8
-    "@types/mysql": ^2
+    "@types/mysql": 2.15.21
     "@types/node": 14.14.33
     "@typescript-eslint/eslint-plugin": 4.3.0
     "@typescript-eslint/parser": 4.3.0
