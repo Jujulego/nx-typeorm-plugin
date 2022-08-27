@@ -3554,6 +3554,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:8.6.0":
+  version: 8.6.0
+  resolution: "dotenv@npm:8.6.0"
+  checksum: f4649999a157061dd169118f459d88db56380b2eef68e87fa9de7201796e5f6d94fa337658d7e148f404b48652a0eefe11222d9eba0cd464497911ae56cd6f93
+  languageName: node
+  linkType: hard
+
 "duplexify@npm:^3.4.2, duplexify@npm:^3.6.0":
   version: 3.7.1
   resolution: "duplexify@npm:3.7.1"
@@ -6409,7 +6416,7 @@ fsevents@^1.2.7:
     "@typescript-eslint/eslint-plugin": 4.3.0
     "@typescript-eslint/parser": 4.3.0
     chalk: ^4.1.0
-    dotenv: 8.2.0
+    dotenv: 8.6.0
     eslint: 7.10.0
     eslint-config-prettier: 8.1.0
     jest: 26.2.2
