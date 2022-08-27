@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 14.x
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.7
         with:
           path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: 14.x
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.7
         with:
           path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -74,7 +74,7 @@ jobs:
         with:
           node-version: 14.x
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.7
         with:
           path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
