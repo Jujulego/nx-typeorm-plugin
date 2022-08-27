@@ -1078,10 +1078,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.14.33":
-  version: 14.14.33
-  resolution: "@types/node@npm:14.14.33"
-  checksum: f269fc728f6547345e000a0d86e1be802b475bb6759493208d7bc1cf8d49e838d3952ae54b8c7cd2ce168f9ef50c30e0d7084064a5f98db87efc833a38d955af
+"@types/node@npm:14.18.26":
+  version: 14.18.26
+  resolution: "@types/node@npm:14.18.26"
+  checksum: 6758798b34cbc894df1900f1a1f1b0dc9c912622b8d7c0b77558445f646872b63922bc4949f249e59c7bef5aaa708f45cb3f864e089591d407b264fafafcd400
   languageName: node
   linkType: hard
 
@@ -6405,7 +6405,7 @@ fsevents@^1.2.7:
     "@nrwl/workspace": 11.6.1
     "@types/jest": 26.0.8
     "@types/mysql": ^2
-    "@types/node": 14.14.33
+    "@types/node": 14.18.26
     "@typescript-eslint/eslint-plugin": 4.3.0
     "@typescript-eslint/parser": 4.3.0
     chalk: ^4.1.0
