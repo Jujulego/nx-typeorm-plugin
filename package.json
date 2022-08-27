@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@nrwl/devkit": "11.6.1",
-    "chalk": "^4.1.0",
+    "chalk": "4.1.2",
     "log-symbols": "^4.1.0",
     "ora": "^5.4.0",
     "pg": "^8.5.1",
