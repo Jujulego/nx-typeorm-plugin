@@ -3789,14 +3789,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:8.1.0":
-  version: 8.1.0
-  resolution: "eslint-config-prettier@npm:8.1.0"
+"eslint-config-prettier@npm:8.5.0":
+  version: 8.5.0
+  resolution: "eslint-config-prettier@npm:8.5.0"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: 409d3a071f8228d4c958a6a9be9d5ec2b357ce21b7b6cbb137096cade2c31f008a0a3c3533dee8979c0cd944f220a959710b30fd86f8b96f0ef1f4f557d740b3
+  checksum: ed43f6bfba9459c577e45c82cc38a17b55d3ad0329fd368fa625d6b8bf83afbb0f3eba875a02d336f0e8365526b459d68f1375f6236dbb45586cb4201f2730db
   languageName: node
   linkType: hard
 
@@ -6411,7 +6411,7 @@ fsevents@^1.2.7:
     chalk: ^4.1.0
     dotenv: 8.2.0
     eslint: 7.10.0
-    eslint-config-prettier: 8.1.0
+    eslint-config-prettier: 8.5.0
     jest: 26.2.2
     log-symbols: ^4.1.0
     mysql: ^2.18.1
