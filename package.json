@@ -38,7 +38,7 @@
     "ts-node": "~9.1.1",
     "tsconfig-paths": "^3.9.0",
     "tslib": "^2.0.0",
-    "typeorm": "^0.2.32"
+    "typeorm": "^0.3.0"
   },
   "devDependencies": {
     "@nrwl/cli": "11.6.1",
